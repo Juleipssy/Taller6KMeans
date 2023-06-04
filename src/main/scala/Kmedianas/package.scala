@@ -134,25 +134,57 @@ package object Kmedianas {
   }
 
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////CODIGO DE GETIAL LA PRIMERA, LA SEGUNDA OTRA FORMA DE HACER, VERIFICAR/////////////////////////////////////
   def hayConvergenciaPar(eta: Double, medianasViejas: ParSeq[Punto], medianasNuevas: ParSeq[Punto]): Boolean = {
-
+    val l = medianasViejas.length
+    !(for (i <- 0 until l) yield
+      medianasViejas(i).distanciaAlCuadrado(medianasNuevas(i)) < (eta * eta)
+      ).contains(false)
   }
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  def hayConvergenciaPar(eta: Double, medianasViejas: ParSeq[Punto], medianasNuevas: ParSeq[Punto]): Boolean = {
+    val l = medianasViejas.length
+    val noConvergentes = (0 until l).exists { i =>
+      medianasViejas(i).distanciaAlCuadrado(medianasNuevas(i)) >= (eta * eta)
+    }
+    !noConvergentes
+  }
+
+
+  //////////////////////////////CODIGO DE GETIAL////////////////////////////////////////////////////////////
   def hayConvergenciaSeq(eta: Double, medianasViejas: Seq[Punto], medianasNuevas: Seq[Punto]): Boolean = {
-
+    val l = medianasViejas.length
+    !(for (i <- 0 until l) yield
+      medianasViejas(i).distanciaAlCuadrado(medianasNuevas(i)) < (eta*eta)
+      ).contains(false)
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  def hayConvergenciaSeq(eta: Double, medianasViejas: Seq[Punto], medianasNuevas: Seq[Punto]): Boolean = {
+    val l = medianasViejas.length
+    val noConvergentes = (0 until l).exists { i =>
+      medianasViejas(i).distanciaAlCuadrado(medianasNuevas(i)) >= (eta * eta)
+    }
+    !noConvergentes
+  }
+
+
+  ////////////////////////////CODIGO DE GETIAL/////////////////////////////////////////////////////////////
   final def kMedianasPar(puntos: ParSeq[Punto], medianas: ParSeq[Punto], eta: Double): ParSeq[Punto] = {
-
+    val clasificacion = clasificarPar(puntos, medianas)
+    val medianasNuevas = actualizarPar(clasificacion, medianas)
+    if (hayConvergenciaPar(eta, medianas, medianasNuevas)) medianasNuevas
+    else kMedianasPar(puntos, medianasNuevas, eta)
   }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////CODIGO DE GETIAL//////////////////////////////////////////////////
   final def kMedianasSeq(puntos: Seq[Punto], medianas: Seq[Punto], eta: Double): Seq[Punto] = {
-
+    val clasificacion = clasificarSeq(puntos, medianas)
+    val medianasNuevas = actualizarSeq(clasificacion, medianas)
+    if(hayConvergenciaSeq(eta, medianas, medianasNuevas)) medianasNuevas
+    else kMedianasSeq(puntos, medianasNuevas, eta)
   }
+
 
   /////////////////////////////////////////////////////////////////////////////////////////
 
