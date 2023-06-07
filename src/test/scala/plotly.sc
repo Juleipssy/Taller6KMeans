@@ -1,4 +1,4 @@
-import kmedianas._
+import Kmedianas._
 import org.scalameter._
 import plotly._, element._, layout._, Plotly._
 import scala.collection.{Map, Seq, mutable}

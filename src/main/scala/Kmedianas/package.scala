@@ -91,10 +91,6 @@ package object Kmedianas {
     }
   }
 
-
-  /////////VERIFICAR LA SEGUNDA O SINO BSARLOS EN LA PRIMERA Q ES DE GETIAL////////////////////////////////////
-
-
   //actualizando medianas paralelas
   /*
   def actualizarPar(clasif: ParMap[Punto, ParSeq[Punto]], medianasViejas: ParSeq[Punto]): ParSeq[Punto] = {
@@ -112,11 +108,6 @@ package object Kmedianas {
     medianasViejas.map(mediana => calculePromedioPar(clasif(mediana))).seq
   }
 
-
-  ////////////////VERIFICAR LA PRIMERA O SINO BSARLOS EN LA SEGUNDA Q ES DE GETIAL/////////////////////////////7
-
-
-
   //actualizando medianas secuenciales
   def actualizarSeq(clasif: Map[Punto, Seq[Punto]], medianasViejas: Seq[Punto]): Seq[Punto] = {
     medianasViejas.map(mediana => calculePromedioSeq(clasif(mediana)))
@@ -133,7 +124,6 @@ package object Kmedianas {
   }
 */
 
-  //////////////////CODIGO DE GETIAL LA PRIMERA, LA SEGUNDA OTRA FORMA DE HACER, VERIFICAR/////////////////////////////////////
  /*
   def hayConvergenciaPar(eta: Double, medianasViejas: ParSeq[Punto], medianasNuevas: ParSeq[Punto]): Boolean = {
     val l = medianasViejas.length
@@ -141,7 +131,6 @@ package object Kmedianas {
       medianasViejas(i).distanciaAlCuadrado(medianasNuevas(i)) < (eta * eta)
       ).contains(false)
   }*/
-
 
   def hayConvergenciaPar(eta: Double, medianasViejas: ParSeq[Punto], medianasNuevas: ParSeq[Punto]): Boolean = {
     val l = medianasViejas.length
@@ -151,8 +140,6 @@ package object Kmedianas {
     !noConvergentes
   }
 
-
-  //////////////////////////////CODIGO DE GETIAL////////////////////////////////////////////////////////////
   /*
   def hayConvergenciaSeq(eta: Double, medianasViejas: Seq[Punto], medianasNuevas: Seq[Punto]): Boolean = {
     val l = medianasViejas.length
@@ -169,16 +156,12 @@ package object Kmedianas {
     !noConvergentes
   }
 
-
-  ////////////////////////////CODIGO DE GETIAL/////////////////////////////////////////////////////////////
   final def kMedianasPar(puntos: ParSeq[Punto], medianas: ParSeq[Punto], eta: Double): ParSeq[Punto] = {
     val clasificacion = clasificarPar(puntos, medianas)
     val medianasNuevas = actualizarPar(clasificacion, medianas)
     if (hayConvergenciaPar(eta, medianas, medianasNuevas)) medianasNuevas
     else kMedianasPar(puntos, medianasNuevas, eta)
   }
-
-  //////////////////////////////CODIGO DE GETIAL//////////////////////////////////////////////////
   final def kMedianasSeq(puntos: Seq[Punto], medianas: Seq[Punto], eta: Double): Seq[Punto] = {
     val clasificacion = clasificarSeq(puntos, medianas)
     val medianasNuevas = actualizarSeq(clasificacion, medianas)
@@ -186,9 +169,7 @@ package object Kmedianas {
     else kMedianasSeq(puntos, medianasNuevas, eta)
   }
 
-
   /////////////////////////////////////////////////////////////////////////////////////////
-
 
   def generarPuntosPar(k: Int, num: Int): ParSeq[Punto] = {
     val randx = new Random(1)
@@ -205,8 +186,6 @@ package object Kmedianas {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
   def generarPuntosSeq(k: Int, num: Int): Seq[Punto] = {
     val randx = new Random(1)
     val randy = new Random(3)
@@ -219,7 +198,6 @@ package object Kmedianas {
         new Punto(x, y, z)
       }).to(mutable.ArrayBuffer)
   }
-
 
 
 //////////////////////////////////////////////////////////////////////////////////////
