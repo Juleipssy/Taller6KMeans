@@ -52,8 +52,6 @@ package object Kmedianas {
   //version secuencial
   def clasificarSeq(puntos: Seq[Punto], medianas: Seq[Punto]): Map[Punto, Seq[Punto]] = {
     puntos.groupBy(puntos => hallarPuntoMasCercano(puntos, medianas))
-
-
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////7
@@ -98,6 +96,7 @@ package object Kmedianas {
 
 
   //actualizando medianas paralelas
+  /*
   def actualizarPar(clasif: ParMap[Punto, ParSeq[Punto]], medianasViejas: ParSeq[Punto]): ParSeq[Punto] = {
     def nuevaMediana(mediana: Punto): Punto = {
       if (clasif.contains(mediana)) calculePromedioPar(mediana, clasif(mediana))
@@ -108,7 +107,7 @@ package object Kmedianas {
     medianasViejas.map(nuevaMediana)
   }
 
-
+*/
   def actualizarPar(clasif: ParMap[Punto, ParSeq[Punto]], medianasViejas: ParSeq[Punto]): ParSeq[Punto] = {
     medianasViejas.map(mediana => calculePromedioPar(clasif(mediana))).seq
   }
@@ -123,7 +122,7 @@ package object Kmedianas {
     medianasViejas.map(mediana => calculePromedioSeq(clasif(mediana)))
   }
 
-
+/*
   def actualizarSeq(clasif: Map[Punto, Seq[Punto]], medianasViejas: Seq[Punto]): Seq[Punto] = {
     def nuevaMediana(mediana: Punto): Punto = {
       if (clasif.contains(mediana)) calculePromedioSeq(mediana, clasif(mediana))
@@ -132,15 +131,16 @@ package object Kmedianas {
 
     medianasViejas.map(nuevaMediana)
   }
-
+*/
 
   //////////////////CODIGO DE GETIAL LA PRIMERA, LA SEGUNDA OTRA FORMA DE HACER, VERIFICAR/////////////////////////////////////
+ /*
   def hayConvergenciaPar(eta: Double, medianasViejas: ParSeq[Punto], medianasNuevas: ParSeq[Punto]): Boolean = {
     val l = medianasViejas.length
     !(for (i <- 0 until l) yield
       medianasViejas(i).distanciaAlCuadrado(medianasNuevas(i)) < (eta * eta)
       ).contains(false)
-  }
+  }*/
 
 
   def hayConvergenciaPar(eta: Double, medianasViejas: ParSeq[Punto], medianasNuevas: ParSeq[Punto]): Boolean = {
@@ -153,13 +153,14 @@ package object Kmedianas {
 
 
   //////////////////////////////CODIGO DE GETIAL////////////////////////////////////////////////////////////
+  /*
   def hayConvergenciaSeq(eta: Double, medianasViejas: Seq[Punto], medianasNuevas: Seq[Punto]): Boolean = {
     val l = medianasViejas.length
     !(for (i <- 0 until l) yield
       medianasViejas(i).distanciaAlCuadrado(medianasNuevas(i)) < (eta*eta)
       ).contains(false)
   }
-
+*/
   def hayConvergenciaSeq(eta: Double, medianasViejas: Seq[Punto], medianasNuevas: Seq[Punto]): Boolean = {
     val l = medianasViejas.length
     val noConvergentes = (0 until l).exists { i =>
